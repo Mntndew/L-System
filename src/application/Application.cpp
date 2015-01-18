@@ -55,13 +55,14 @@ void Application::initialize()
 	settings.antialiasingLevel = 32;
 
 	m_window.create(sf::VideoMode(1280, 720), "L-System", sf::Style::Close, settings);
+	m_view = sf::View(sf::FloatRect(0, 0, 1280, 720));
 
 	m_running = true;
 	m_active = true;
 
 	m_angle = 0;
 
-	for(int i = 0; i < 10; ++i)
+	for(int i = 0; i < 11; ++i)
 	{
 		m_rules.iterate();
 	}
@@ -111,6 +112,30 @@ void Application::handleEvents()
 			{
 				m_running = false;
 			}
+			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
+			{
+				m_view.zoom(1.1f);
+			}
+			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
+			{
+				m_view.zoom(0.9f);
+			}
+			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			{
+				m_view.move(sf::Vector2f(0, -10.f));
+			}
+			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
+				m_view.move(sf::Vector2f(0, 10.f));
+			}
+			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				m_view.move(sf::Vector2f(-10.f, 0));
+			}
+			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				m_view.move(sf::Vector2f(10.f, 0));
+			}
 		}
 	}
 }
@@ -121,6 +146,7 @@ void Application::update(sf::Time & p_deltaTime)
 
 void Application::render()
 {
+	m_window.setView(m_view);
 	m_window.clear(sf::Color(46, 46, 46));
 	m_window.draw(m_lines);
 	m_window.display();
