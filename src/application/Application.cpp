@@ -24,8 +24,6 @@ void Application::followRules()
 
 	std::string string = m_rules.getString();
 
-	std::cout << string << std::endl;
-
 	for(int i = 0; i < string.size(); ++i)
 	{
 		switch((char)(string[i]))
@@ -61,8 +59,9 @@ void Application::initialize()
 	m_active = true;
 
 	m_angle = 0;
+	m_zoom = 1;
 
-	for(int i = 0; i < 11; ++i)
+	for(int i = 0; i < 12; ++i)
 	{
 		m_rules.iterate();
 	}
@@ -115,26 +114,28 @@ void Application::handleEvents()
 			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
 			{
 				m_view.zoom(1.1f);
+				m_zoom *= 1.1f;
 			}
 			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
 			{
 				m_view.zoom(0.9f);
+				m_zoom *= 0.9f;
 			}
 			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
-				m_view.move(sf::Vector2f(0, -10.f));
+				m_view.move(sf::Vector2f(0, -10.f*m_zoom));
 			}
 			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			{
-				m_view.move(sf::Vector2f(0, 10.f));
+				m_view.move(sf::Vector2f(0, 10.f*m_zoom));
 			}
 			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
-				m_view.move(sf::Vector2f(-10.f, 0));
+				m_view.move(sf::Vector2f(-10.f*m_zoom, 0));
 			}
 			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
-				m_view.move(sf::Vector2f(10.f, 0));
+				m_view.move(sf::Vector2f(10.f*m_zoom, 0));
 			}
 		}
 	}

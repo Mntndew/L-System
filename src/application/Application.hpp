@@ -37,7 +37,7 @@ private:
 
 	sf::Vector2f m_position;
 	
-	float m_angle;
+	float m_angle, m_zoom;
 
 	void followRules();
 };

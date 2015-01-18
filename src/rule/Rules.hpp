@@ -54,8 +54,8 @@ private:
 	
 	void registerRules()
 	{
-		m_rules['F'] = "G-F-G";
-		m_rules['G'] = "F+G+F";
+		m_rules['F'] = "G+F+G";
+		m_rules['G'] = "F-G-F";
 	}
 };
 
